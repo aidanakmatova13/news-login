@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../redux/actions/userActions";
+import {Redirect, useHistory} from "react-router-dom";
 
-const Login = () => {
+const Login = ({location}) => {
     const dispatch = useDispatch()
+    const history = useHistory()
+    const {user: isAuth} = useSelector(s => s.user)
     const [user, setUser] = useState({
         email: '',
         password: ''
@@ -15,7 +18,11 @@ const Login = () => {
         e.preventDefault()
         if (user.email === 'admin@admin.com' && user.password === '123456'){
             dispatch(login())
+            history.push(location.state.from.pathname || '/')
         }
+    }
+    if (isAuth){
+        return <Redirect to='/'/>
     }
     return (
         <div className="flex items-center justify-center">

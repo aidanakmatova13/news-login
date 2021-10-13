@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import Header from "./components/header";
 import {useDispatch} from "react-redux";
 import {login} from "./redux/actions/userActions";
+import PrivateRoute from "./components/privateRoute";
 
 function App() {
     const dispatch = useDispatch()
@@ -18,7 +19,7 @@ function App() {
     <Router>
         <Header/>
         <Route exact path='/' component={DashBoard}/>
-        <Route path='/news' component={News}/>
+        <PrivateRoute path='/news' component={News}/>
         <Route path='/login' component={Login}/>
     </Router>
   );
